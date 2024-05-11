@@ -47,3 +47,32 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+
+/* Style pour le tableau d'erreurs */
+#errorTable {
+    margin-top: 20px;
+}
+
+#errorTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#errorTable th, #errorTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#errorTable th {
+    background-color: #f2f2f2;
+}
+
+#errorTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#errorTable tr:hover {
+    background-color: #ddd;
+}
