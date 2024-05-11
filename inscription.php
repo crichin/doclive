@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Inscription</title>
-    <link rel="stylesheet" href="inscript.css">
-    <link rel="stylesheet" href="style.css">
-</head>
 <?php
-// Définir les variables pour stocker les erreurs
+// Définir les variables pour stocker les erreurs et les données du formulaire
 $usernameError = $nomError = $prenomError = $emailError = $passwordError = $confirmPasswordError = "";
+$username = $nom = $prenom = $email = "";
 
 // Vérification si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -45,6 +37,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirmPassword) {
         $confirmPasswordError = "Les mots de passe ne correspondent pas.";
     }
+
+    // Si aucune erreur n'est survenue, on peut procéder à l'inscription
+    if (empty($usernameError) && empty($nomError) && empty($prenomError) && empty($emailError) && empty($passwordError) && empty($confirmPasswordError)) {
+        // Connexion à la base de données
+        try {
+            $bdd = new PDO('mysql:host=localhost;dbname=doclive;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
+
+        // Hachage du mot de passe
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Préparation de la requête d'insertion
+        $requete = $bdd->prepare("INSERT INTO inscription (nom, prenom, email, motdepasse) VALUES (?, ?, ?, ?)");
+
+        // Exécution de la requête avec les valeurs des champs du formulaire
+        $requete->execute([$nom, $prenom, $email, $hashedPassword]);
+
+        // Redirection vers la page de connexion
+        header("Location: connexion.php");
+        exit(); // Assure que le script s'arrête après la redirection
+    }
 }
 ?>
 
@@ -66,22 +81,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Formulaire d'Inscription</h2>
             <div class="input-group">
                 <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
                 <span class="error-message"><?php echo $usernameError; ?></span>
             </div>
             <div class="input-group">
                 <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" required>
+                <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($nom); ?>" required>
                 <span class="error-message"><?php echo $nomError; ?></span>
             </div>
             <div class="input-group">
                 <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" required>
+                <input type="text" id="prenom" name="prenom" value="<?php echo htmlspecialchars($prenom); ?>" required>
                 <span class="error-message"><?php echo $prenomError; ?></span>
             </div>
             <div class="input-group">
                 <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 <span class="error-message"><?php echo $emailError; ?></span>
             </div>
             <div class="input-group">
