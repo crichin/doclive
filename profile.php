@@ -18,25 +18,7 @@
        // Récupération des résultats
 while($result = $requete->fetch(PDO::FETCH_ASSOC)) {
     echo $result['nom'] . '<br>';
-//echo '
 
-//<h2>Profil</h2>
-//<table>
-  //  <tr>
-   //     <th>Nom</th>
-       // <td>'. $result['nom'] .'</td>
-    //</tr>
-    //<tr>
-        //<th>Prénom</th>
-        //<td>'.$result['prenom'].'</td>
-    //</tr>
-    //<tr>
-       // <th>Email</th>
-        //<td> '.$result['email'].'</td>
-    //</tr>
-//</table>
-
-//' ;
     
         }
     
