@@ -1,40 +1,10 @@
-/* Couleurs */
-.bg-gray-900 {
+/* Barre de navigation */
+.navbar {
     background-color: #333; /* Couleur de fond */
-}
-
-.text-white {
-    color: white; /* Couleur du texte */
-}
-
-/* Espacement */
-.p-4 {
     padding: 10px; /* Espacement intérieur */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Ombre douce */
 }
 
-.space-x-4 > * + * {
-    margin-left: 10px; /* Espacement entre les éléments horizontalement */
-}
-
-/* Alignement */
-.flex {
-    display: flex;
-}
-
-.items-center {
-    align-items: center; /* Alignement vertical */
-}
-
-.justify-center {
-    justify-content: center; /* Alignement horizontal */
-}
-
-/* Style de texte */
-.font-bold {
-    font-weight: bold; /* Texte en gras */
-}
-
-/* Suppression des styles par défaut */
 .menu {
     list-style-type: none; /* Supprimer les puces */
     margin: 0; /* Supprimer les marges */
@@ -43,4 +13,59 @@
 
 .menu li {
     display: inline-block; /* Afficher les éléments côte à côte */
+    margin-right: 15px; /* Espacement entre les éléments */
+}
+
+.menu li:last-child {
+    margin-right: 0; /* Supprimer l'espacement à droite pour le dernier élément */
+}
+
+.menu li a {
+    color: white; /* Couleur du texte */
+    text-decoration: none; /* Supprimer le soulignage des liens */
+    padding: 8px 15px; /* Espacement intérieur */
+    border-radius: 5px; /* Bordure arrondie */
+    transition: background-color 0.3s; /* Animation de transition */
+}
+
+.menu li a:hover {
+    background-color: #555; /* Couleur de fond au survol */
+}
+
+/* Menu hamburger */
+.hamburger-menu {
+    display: none; /* Cacher par défaut */
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none; /* Cacher le menu principal sur les petits écrans */
+    }
+    
+    .hamburger-menu {
+        display: block; /* Afficher le menu hamburger sur les petits écrans */
+        float: right; /* Alignement à droite */
+        cursor: pointer; /* Curseur pointer */
+    }
+    
+    .hamburger-menu .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px auto; /* Espacement entre les barres */
+        transition: background-color 0.3s; /* Animation de transition */
+    }
+
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0; /* Cacher la barre du milieu */
+    }
+
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg); /* Rotation de la barre supérieure */
+    }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg); /* Rotation de la barre inférieure */
+    }
 }
