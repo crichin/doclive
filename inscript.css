@@ -49,3 +49,31 @@ button:hover {
 }
 
 
+
+
+
+.error {
+    color: red; /* Couleur du texte des messages d'erreur en rouge */
+}
+
+.errors {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+.errors h3 {
+    color: #721c24; /* Couleur du titre */
+    margin-top: 0;
+}
+
+.errors ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.errors li {
+    color: red; /* Couleur des éléments de la liste en rouge */
+}
