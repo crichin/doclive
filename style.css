@@ -1,9 +1,40 @@
-/* CSS pour la barre de navigation */
-.navbar {
+/* Couleurs */
+.bg-gray-900 {
     background-color: #333; /* Couleur de fond */
+}
+
+.text-white {
+    color: white; /* Couleur du texte */
+}
+
+/* Espacement */
+.p-4 {
     padding: 10px; /* Espacement intérieur */
 }
 
+.space-x-4 > * + * {
+    margin-left: 10px; /* Espacement entre les éléments horizontalement */
+}
+
+/* Alignement */
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center; /* Alignement vertical */
+}
+
+.justify-center {
+    justify-content: center; /* Alignement horizontal */
+}
+
+/* Style de texte */
+.font-bold {
+    font-weight: bold; /* Texte en gras */
+}
+
+/* Suppression des styles par défaut */
 .menu {
     list-style-type: none; /* Supprimer les puces */
     margin: 0; /* Supprimer les marges */
@@ -12,22 +43,4 @@
 
 .menu li {
     display: inline-block; /* Afficher les éléments côte à côte */
-    margin-right: 10px; /* Espacement entre les éléments */
-}
-
-.menu li a {
-    color: white; /* Couleur du texte */
-    text-decoration: none; /* Supprimer le soulignage des liens */
-    padding: 5px 10px; /* Espacement intérieur */
-}
-
-/* CSS pour le pied de page */
-footer {
-    background-color: #333; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    text-align: center; /* Alignement du texte au centre */
-    padding: 20px; /* Espacement intérieur */
-    position: fixed; /* Position fixe en bas de la page */
-    width: 100%; /* Largeur de 100% */
-    bottom: 0; /* Alignement en bas */
 }
