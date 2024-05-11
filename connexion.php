@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    +<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="connexion.css">
     <link rel="stylesheet" href="style.css">
@@ -25,6 +25,8 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Se connecter</button>
+            <a href="inscription.php" class="inscription-link">Pas encore inscrit ? S'inscrire ici</a>
+
         </form>
     </div>
 </body>
