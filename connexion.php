@@ -20,6 +20,8 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Se connecter</button>
+            <a href="inscription.php" class="inscription-link">Pas encore inscrit ? S'inscrire ici</a>
+
         </form>
         <div id="errorTable"></div> <!-- Div pour afficher les erreurs -->
     </div>
