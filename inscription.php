@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Inscription</title>
     <link rel="stylesheet" href="inscript.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
+<?php
+    include("include/nave.php");
+    ?>
 <body>
     <div class="container">
         <form action="traitement.php" method="post">

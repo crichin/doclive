@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $requete->execute([$nom, $prenom, $email, $hashedPassword]);
 
         // Redirection vers la page de connexion
-        header("Location: ../connexion/connexion.php");
+        header("Location: connexion.php");
         exit(); // Assure que le script s'arrête après la redirection
     } else {
         // Affichage des erreurs

@@ -5,16 +5,16 @@
     +<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="connexion.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <?php
-    include("../include/nave.php");
+    include("include/nave.php");
     ?>
 <body>
     <div class="container">
 
- <form action="connexion_traitement.php" method="post">
+ <form action="traitement.php" method="post">
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="email">Email :</label>
