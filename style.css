@@ -69,3 +69,58 @@
         transform: translateY(-8px) rotate(-45deg); /* Rotation de la barre inférieure */
     }
 }
+
+
+/* Styles pour les boutons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff; /* Couleur de fond par défaut */
+    transition: background-color 0.3s;
+}
+
+/* Au survol */
+.btn:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
+}
+
+/* Pour les boutons de couleur différente */
+.btn.secondary {
+    background-color: #6c757d; /* Couleur de fond */
+}
+
+/* Au survol pour les boutons de couleur différente */
+.btn.secondary:hover {
+    background-color: #5a6268; /* Couleur de fond au survol */
+}
+
+/* Pour les boutons de couleur accentuée */
+.btn.accent {
+    background-color: #28a745; /* Couleur de fond */
+}
+
+/* Au survol pour les boutons de couleur accentuée */
+.btn.accent:hover {
+    background-color: #218838; /* Couleur de fond au survol */
+}
+
+
+/* footer code */
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
