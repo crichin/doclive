@@ -70,7 +70,6 @@
     }
 }
 
-
 /* Styles pour les boutons */
 .btn {
     display: inline-block;
@@ -110,17 +109,10 @@
     background-color: #218838; /* Couleur de fond au survol */
 }
 
-
-/* footer code */
-
+/* Footer */
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
+    background-color: #333; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    text-align: center; /* Alignement du texte au centre */
+    padding: 20px; /* Espacement intérieur */
 }
-
-footer p {
-    margin-bottom: 10px;
-}
-

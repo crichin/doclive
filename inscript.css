@@ -1,10 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
+/* CSS pour le formulaire d'inscription */
 .container {
     width: 50%;
     margin: 50px auto;
@@ -19,7 +13,7 @@ h2 {
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .input-group label {
@@ -34,6 +28,18 @@ h2 {
     border-radius: 4px;
 }
 
+/* Mettre en évidence les champs avec des erreurs */
+.input-group.error input {
+    border-color: red;
+}
+
+/* Afficher les messages d'erreur */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 button {
     width: 100%;
     padding: 10px;
@@ -42,6 +48,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
