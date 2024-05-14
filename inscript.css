@@ -1,4 +1,4 @@
-/* CSS pour le formulaire d'inscription */
+/* CSS pour le formulaire de connexion */
 .container {
     width: 50%;
     margin: 50px auto;
@@ -53,4 +53,21 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Style pour le paragraphe et le lien d'inscription */
+p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+p a:hover {
+    color: #0056b3;
 }

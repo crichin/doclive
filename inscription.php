@@ -110,6 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="error-message"><?php echo $confirmPasswordError; ?></span>
             </div>
             <button type="submit">S'inscrire</button>
+
+            <p>Déja inscrit ? <a href="connexion.php">Connectez-vous</a></p>
+
         </form>
     </div>
 
