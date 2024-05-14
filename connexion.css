@@ -52,3 +52,16 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.inscription-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.inscription-link:hover {
+    color: #0056b3;
+}
+
