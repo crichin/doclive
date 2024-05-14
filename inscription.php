@@ -1,12 +1,12 @@
 <?php
 // Définir les variables pour stocker les erreurs et les données du formulaire
-$usernameError = $nomError = $prenomError = $emailError = $passwordError = $confirmPasswordError = "";
-$username = $nom = $prenom = $email = "";
+$nomutilisateurError = $nomError = $prenomError = $emailError = $passwordError = $confirmPasswordError = "";
+$nomutilisateur = $nom = $prenom = $email = "";
 
 // Vérification si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupération des données du formulaire
-    $username = $_POST["username"];
+    $nomutilisateur = $_POST["nomutilisateur"];
     $nom = $_POST["nom"];
     $prenom = $_POST["prenom"];
     $email = $_POST["email"];
@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = $_POST["confirm-password"];
 
     // Validation des champs
-    if (empty($username)) {
-        $usernameError = "Veuillez entrer votre nom d'utilisateur.";
+    if (empty($nomutilisateur)) {
+        $nomutilisateurError = "Veuillez entrer votre nom d'utilisateur.";
     }
 
     if (strlen($nom) <= 5) {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Si aucune erreur n'est survenue, on peut procéder à l'inscription
-    if (empty($usernameError) && empty($nomError) && empty($prenomError) && empty($emailError) && empty($passwordError) && empty($confirmPasswordError)) {
+    if (empty($nomutilisateurError) && empty($nomError) && empty($prenomError) && empty($emailError) && empty($passwordError) && empty($confirmPasswordError)) {
         // Connexion à la base de données
         try {
             $bdd = new PDO('mysql:host=localhost;dbname=doclive;charset=utf8', 'root', '');
@@ -47,18 +47,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die('Erreur : ' . $e->getMessage());
         }
 
-        // Hachage du mot de passe
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Vérifier si l'email est déjà utilisé
+        $requete = $bdd->prepare("SELECT * FROM inscription WHERE email = ?");
+        $requete->execute([$email]);
+        if ($requete->rowCount() > 0) {
+            $emailError = "L'adresse email est déjà utilisée.";
+        } else {
+            // Hachage du mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Préparation de la requête d'insertion
-        $requete = $bdd->prepare("INSERT INTO inscription (nom, prenom, email, motdepasse) VALUES (?, ?, ?, ?)");
+            // Préparation de la requête d'insertion
+            $requete = $bdd->prepare("INSERT INTO inscription (nomutilisateur, nom, prenom, email, motdepasse) VALUES (?, ?, ?, ?, ?)");
 
-        // Exécution de la requête avec les valeurs des champs du formulaire
-        $requete->execute([$nom, $prenom, $email, $hashedPassword]);
+            // Exécution de la requête avec les valeurs des champs du formulaire
+            $requete->execute([$nomutilisateur, $nom, $prenom, $email, $hashedPassword]);
 
-        // Redirection vers la page de connexion
-        header("Location: connexion.php");
-        exit(); // Assure que le script s'arrête après la redirection
+            // Redirection vers la page de connexion
+            header("Location: connexion.php");
+            exit(); // Assure que le script s'arrête après la redirection
+        }
     }
 }
 ?>
@@ -80,9 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h2>Formulaire d'Inscription</h2>
             <div class="input-group">
-                <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
-                <span class="error-message"><?php echo $usernameError; ?></span>
+                <label for="nomutilisateur">Nom d'utilisateur :</label>
+                <input type="text" id="nomutilisateur" name="nomutilisateur" value="<?php echo htmlspecialchars($nomutilisateur); ?>" required>
+                <span class="error-message"><?php echo $nomutilisateurError; ?></span>
             </div>
             <div class="input-group">
                 <label for="nom">Nom :</label>
@@ -111,8 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button type="submit">S'inscrire</button>
 
-            <p>Déja inscrit ? <a href="connexion.php">Connectez-vous</a></p>
-
+            <p>Déjà inscrit ? <a href="connexion.php">Connectez-vous</a></p>
         </form>
     </div>
 

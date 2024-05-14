@@ -36,20 +36,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $requete->fetch();
 
         // Vérification du mot de passe
-        if ($user && password_verify($password, $user['motdepasse'])) {
-            // Stocker les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['nom'];
-            
-            // Créer un cookie valable pour 7 jours
-            setcookie("user_id", $user['id'], time() + (7 * 24 * 60 * 60), "/");
-            setcookie("user_name", $user['nom'], time() + (7 * 24 * 60 * 60), "/");
+        if ($user) {
+            if (password_verify($password, $user['motdepasse'])) {
+                // Stocker les informations de l'utilisateur dans la session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['nom'];
+                
+                // Créer un cookie valable pour 7 jours
+                setcookie("user_id", $user['id'], time() + (7 * 24 * 60 * 60), "/");
+                setcookie("user_name", $user['nom'], time() + (7 * 24 * 60 * 60), "/");
 
-            // Redirection vers la page de profil
-            header("Location: profile.php");
-            exit(); // Assure que le script s'arrête après la redirection
+                // Redirection vers la page de profil
+                header("Location: profile.php");
+                exit(); // Assure que le script s'arrête après la redirection
+            } else {
+                $passwordError = "Le mot de passe est incorrect.";
+            }
         } else {
-            $passwordError = "Email ou mot de passe incorrect.";
+            $passwordError = "Aucun utilisateur trouvé avec cet email.";
         }
     }
 }
@@ -86,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Pas encore inscrit ? <a href="inscription.php">Créez un compte</a></p>
         </form>
     </div>
-
 
     <?php include("include/footer.php"); ?>
 </body>
