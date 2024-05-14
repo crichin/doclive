@@ -50,25 +50,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include("include/nave.php"); ?>
 
-    <div class="container">
-        <h2>Profil de <?php echo htmlspecialchars($user['nomutilisateur']); ?></h2>
-        <form action="profile.php" method="post">
-            <div class="input-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($user['nom']); ?>" required>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Profil de <?php echo htmlspecialchars($user['nomutilisateur']); ?></h2>
+        </div>
+        <div class="profile-content">
+            <div class="profile-block">
+                <h3>Informations Personnelles</h3>
+                <form action="profile.php" method="post">
+                    <div class="input-group">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($user['nom']); ?>" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="prenom">Prénom :</label>
+                        <input type="text" id="prenom" name="prenom" value="<?php echo htmlspecialchars($user['prenom']); ?>" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                    </div>
+                    <button type="submit">Mettre à jour</button>
+                </form>
             </div>
-            <div class="input-group">
-                <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" value="<?php echo htmlspecialchars($user['prenom']); ?>" required>
+            <div class="profile-block">
+                <h3>Autres Informations</h3>
+                <p>Vous pouvez ajouter d'autres informations ici.</p>
             </div>
-            <div class="input-group">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-            </div>
-            <button type="submit">Mettre à jour</button>
-        </form>
-        <form action="logout.php" method="post">
-            <button type="submit">Se déconnecter</button>
+        </div>
+        <form action="logout.php" method="post" class="logout-form">
+            <button type="submit" class="logout-button">Se déconnecter</button>
         </form>
     </div>
 
