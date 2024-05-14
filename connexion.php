@@ -1,84 +1,96 @@
+<?php
+// Démarrer la session
+session_start();
+
+// Définir les variables pour stocker les erreurs et les données du formulaire
+$emailError = $passwordError = "";
+$email = "";
+
+// Vérification si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupération des données du formulaire
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Validation des champs
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailError = "L'adresse email n'est pas valide.";
+    }
+
+    if (empty($password)) {
+        $passwordError = "Veuillez entrer votre mot de passe.";
+    }
+
+    // Si aucune erreur n'est survenue, on peut procéder à la connexion
+    if (empty($emailError) && empty($passwordError)) {
+        // Connexion à la base de données
+        try {
+            $bdd = new PDO('mysql:host=localhost;dbname=doclive;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
+
+        // Préparation de la requête de sélection
+        $requete = $bdd->prepare("SELECT * FROM inscription WHERE email = ?");
+        $requete->execute([$email]);
+        $user = $requete->fetch();
+
+        // Vérification du mot de passe
+        if ($user) {
+            if (password_verify($password, $user['motdepasse'])) {
+                // Stocker les informations de l'utilisateur dans la session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['nom'];
+                
+                // Créer un cookie valable pour 7 jours
+                setcookie("user_id", $user['id'], time() + (7 * 24 * 60 * 60), "/");
+                setcookie("user_name", $user['nom'], time() + (7 * 24 * 60 * 60), "/");
+
+                // Redirection vers la page de profil
+                header("Location: profile.php");
+                exit(); // Assure que le script s'arrête après la redirection
+            } else {
+                $passwordError = "Le mot de passe est incorrect.";
+            }
+        } else {
+            $passwordError = "Aucun utilisateur trouvé avec cet email.";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link rel="stylesheet" href="connexion.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inscript.css">
+
 </head>
+
 <body>
+    <?php include("include/nave.php"); ?>
+    
     <div class="container">
-        <form id="loginForm" action="traitconnect.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                <span class="error-message"><?php echo $emailError; ?></span>
             </div>
             <div class="input-group">
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" required>
+                <span class="error-message"><?php echo $passwordError; ?></span>
             </div>
             <button type="submit">Se connecter</button>
-            <a href="inscription.php" class="inscription-link">Pas encore inscrit ? S'inscrire ici</a>
-
+            <p>Pas encore inscrit ? <a href="inscription.php">Créez un compte</a></p>
         </form>
-        <div id="errorTable"></div> <!-- Div pour afficher les erreurs -->
     </div>
 
-    <script>
-        // Fonction pour afficher les erreurs dans un tableau
-        function displayErrors(errors) {
-            // Sélection de la div où afficher les erreurs
-            var errorDiv = document.getElementById('errorTable');
-
-            // Création du tableau et de l'en-tête
-            var table = document.createElement('table');
-            var headerRow = table.insertRow();
-            var headerCell = headerRow.insertCell();
-            headerCell.textContent = 'Erreurs de connexion';
-            headerCell.colSpan = 2;
-            headerCell.style.fontWeight = 'bold';
-
-            // Ajout des erreurs dans le tableau
-            errors.forEach(function(error) {
-                var row = table.insertRow();
-                var cell1 = row.insertCell();
-                var cell2 = row.insertCell();
-                cell1.textContent = error.field; // Champ avec erreur
-                cell2.textContent = error.message; // Message d'erreur
-            });
-
-            // Effacer le contenu précédent et ajouter le tableau
-            errorDiv.innerHTML = '';
-            errorDiv.appendChild(table);
-        }
-
-        // Événement de soumission du formulaire
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Empêcher la soumission du formulaire par défaut
-
-            // Récupération des valeurs des champs
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-
-            // Validation côté client (exemple)
-            var errors = [];
-            if (email.trim() === '') {
-                errors.push({ field: 'Email', message: 'Veuillez saisir votre adresse email.' });
-            }
-            if (password.trim() === '') {
-                errors.push({ field: 'password', message: 'Veuillez saisir votre mot de passe.' });
-            }
-
-            // Si des erreurs sont présentes, les afficher
-            if (errors.length > 0) {
-                displayErrors(errors);
-            } else {
-                // Si pas d'erreur, soumettre le formulaire
-                this.submit();
-            }
-        });
-    </script>
+    <?php include("include/footer.php"); ?>
 </body>
 </html>

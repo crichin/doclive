@@ -1,4 +1,7 @@
 <?php
+// Définir les variables pour stocker les erreurs
+$usernameError = $nomError = $prenomError = $emailError = $passwordError = $confirmPasswordError = "";
+
 // Vérification si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupération des données du formulaire
@@ -10,30 +13,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = $_POST["confirm-password"];
 
     // Validation des champs
-    $errors = [];
+    if (empty($username)) {
+        $usernameError = "Veuillez entrer votre nom d'utilisateur.";
+    }
 
-    // Validation du nom
     if (strlen($nom) <= 5) {
-        $errors[] = "Le nom doit contenir plus de 5 caractères.";
+        $nomError = "Le nom doit contenir plus de 5 caractères.";
     }
 
-    // Validation du prénom
     if (strlen($prenom) <= 5) {
-        $errors[] = "Le prénom doit contenir plus de 5 caractères.";
+        $prenomError = "Le prénom doit contenir plus de 5 caractères.";
     }
 
-    // Validation de l'email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "L'adresse email n'est pas valide.";
+        $emailError = "L'adresse email n'est pas valide.";
     }
 
-    // Validation du mot de passe
+    if (empty($password)) {
+        $passwordError = "Veuillez entrer votre mot de passe.";
+    }
+
     if ($password !== $confirmPassword) {
-        $errors[] = "Les mots de passe ne correspondent pas.";
+        $confirmPasswordError = "Les mots de passe ne correspondent pas.";
     }
 
     // Si aucune erreur n'est survenue, on peut procéder à l'inscription
-    if (empty($errors)) {
+    if (empty($usernameError) && empty($nomError) && empty($prenomError) && empty($emailError) && empty($passwordError) && empty($confirmPasswordError)) {
         // Connexion à la base de données
         try {
             $bdd = new PDO('mysql:host=localhost;dbname=doclive;charset=utf8', 'root', '');
@@ -53,11 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirection vers la page de connexion
         header("Location: connexion.php");
         exit(); // Assure que le script s'arrête après la redirection
-    } else {
-        // Affichage des erreurs
-        foreach ($errors as $error) {
-            echo $error . "<br>";
-        }
     }
 }
 ?>

@@ -34,6 +34,11 @@ h2 {
     border-radius: 4px;
 }
 
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+}
+
 button {
     width: 100%;
     padding: 10px;

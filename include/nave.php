@@ -1,12 +1,13 @@
 <nav class="navbar">
-        
-        </div>
-        <ul class="menu">
-            <li><a href="index.php">Doclive</a></li>
-            <li><a href="connexion.php">connexion</a></li>
-            <li><a href="inscription.php">inscription</a></li>
-            <li><a href="#"></a></li>
-        </ul>
-    </nav>
-
-    
+    <ul class="menu">
+        <li><a href="index.php">Doclive</a></li>
+        <li><a href="connexion.php">Connexion</a></li>
+        <li><a href="inscription.php">Inscription</a></li>
+        <li><a href="#">Autre lien</a></li>
+    </ul>
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+</nav>
