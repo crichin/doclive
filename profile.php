@@ -1,4 +1,9 @@
 <?php
+// Activer l'affichage des erreurs
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Démarrer la session
 session_start();
 
@@ -45,10 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
+    <link rel="stylesheet" href="style.css">
+
     <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-    <?php include("include/nave.php"); ?>
+<?php include("include/nave.php"); ?>
 
     <div class="profile-container">
         <div class="profile-header">
@@ -76,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="profile-block">
                 <h3>Autres Informations</h3>
                 <p>Vous pouvez ajouter d'autres informations ici.</p>
+
             </div>
         </div>
         <form action="logout.php" method="post" class="logout-form">
@@ -84,5 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <?php include("include/footer.php"); ?>
+
 </body>
 </html>
