@@ -68,7 +68,7 @@
                 errors.push({ field: 'Email', message: 'Veuillez saisir votre adresse email.' });
             }
             if (password.trim() === '') {
-                errors.push({ field: 'Mot de passe', message: 'Veuillez saisir votre mot de passe.' });
+                errors.push({ field: 'password', message: 'Veuillez saisir votre mot de passe.' });
             }
 
             // Si des erreurs sont présentes, les afficher

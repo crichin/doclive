@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $requete = $bdd->prepare("INSERT INTO inscription (nom, prenom, email, motdepasse) VALUES (?, ?, ?, ?)");
 
         // Exécution de la requête avec les valeurs des champs du formulaire
-        $requete->execute([$nom, $prenom, $email, $hashedPassword]);
+        $requete->execute([$nom, $prenom, $email, $password]);
 
         // Redirection vers la page de connexion
         header("Location: connexion.php");
