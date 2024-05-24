@@ -1,0 +1,146 @@
+/* Styles pour le formulaire de réservation */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.reservation-form {
+    width: 50%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button[type="submit"] {
+    padding: 15px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* Barre de navigation */
+.navbar {
+    background-color: #333; /* Couleur de fond */
+    padding: 10px; /* Espacement intérieur */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Ombre douce */
+}
+
+.menu {
+    list-style-type: none; /* Supprimer les puces */
+    margin: 0; /* Supprimer les marges */
+    padding: 0; /* Supprimer les espacements intérieurs */
+}
+
+.menu li {
+    display: inline-block; /* Afficher les éléments côte à côte */
+    margin-right: 15px; /* Espacement entre les éléments */
+}
+
+.menu li:last-child {
+    margin-right: 0; /* Supprimer l'espacement à droite pour le dernier élément */
+}
+
+.menu li a {
+    color: white; /* Couleur du texte */
+    text-decoration: none; /* Supprimer le soulignage des liens */
+    padding: 8px 15px; /* Espacement intérieur */
+    border-radius: 5px; /* Bordure arrondie */
+    transition: background-color 0.3s; /* Animation de transition */
+}
+
+.menu li a:hover {
+    background-color: #555; /* Couleur de fond au survol */
+}
+
+/* Menu hamburger */
+.hamburger-menu {
+    display: none; /* Cacher par défaut */
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none; /* Cacher le menu principal sur les petits écrans */
+    }
+    
+    .hamburger-menu {
+        display: block; /* Afficher le menu hamburger sur les petits écrans */
+        float: right; /* Alignement à droite */
+        cursor: pointer; /* Curseur pointer */
+    }
+    
+    .hamburger-menu .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px auto; /* Espacement entre les barres */
+        transition: background-color 0.3s; /* Animation de transition */
+    }
+
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0; /* Cacher la barre du milieu */
+    }
+
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg); /* Rotation de la barre supérieure */
+    }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg); /* Rotation de la barre inférieure */
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #333; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    text-align: center; /* Alignement du texte au centre */
+    padding: 20px; /* Espacement intérieur */
+}
+
+
+

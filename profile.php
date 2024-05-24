@@ -1,11 +1,14 @@
 <?php
+// Démarrer la session
+session_start();
+
+
 // Activer l'affichage des erreurs
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Démarrer la session
-session_start();
+
 
 // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de connexion
 if (!isset($_SESSION['user_id']) && !isset($_COOKIE['user_id'])) {
@@ -20,8 +23,16 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
+
 // Récupérer les informations de l'utilisateur à partir de la session ou du cookie
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : $_COOKIE['user_id'];
+
+// afficher les info utilisateur 
+
+$requete0 = $bdd->prepare("SELECT * FROM inscription WHERE id = ?");
+$requete0->execute([$user_id]);
+$userInfo = $requete0->fetch();
+//echo "<pre> ".print_r($userInfo) ."</pre>" ;
 
 // Préparation de la requête pour obtenir les informations de l'utilisateur
 $requete = $bdd->prepare("SELECT * FROM inscription WHERE id = ?");
@@ -42,10 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
     $requete = $bdd->prepare("UPDATE inscription SET nom = ?, prenom = ?, email = ? WHERE id = ?");
     $requete->execute([$nom, $prenom, $email, $user_id]);
 
+   
     // Actualiser les informations de l'utilisateur
     header("Location: profile.php?success=1");
     exit();
 }
+
 
 // Vérifier si le formulaire de changement de mot de passe a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
@@ -104,12 +117,23 @@ if (isset($_GET['success'])) {
     <div class="profile-container">
         <div class="profile-header">
             <h2>Profil de <?php echo htmlspecialchars($user['nomutilisateur']); ?></h2>
+        
+        <img src="<?= $userInfo["profile"]?> " srcset="">
         </div>
         <div class="profile-content">
             <?php if ($changePasswordSuccess): ?>
                 <div class="success-message"><?php echo $changePasswordSuccess; ?></div>
             <?php endif; ?>
             <div class="profile-block">
+
+
+                    <!-- photo de profil     -->
+                <h1>ADD PROFILE PICTURE </h1>
+
+                <form action="upload.php" method="post"  enctype="multipart/form-data">
+                    <input type="file" name="pictures" id="">
+                        <button type="submit">profile pic</button>
+                </form>
                 <h3>Informations Personnelles</h3>
                 <form action="profile.php" method="post">
                     <div class="input-group">
